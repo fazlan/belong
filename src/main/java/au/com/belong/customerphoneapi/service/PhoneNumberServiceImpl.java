@@ -4,6 +4,8 @@ import au.com.belong.customerphoneapi.domain.PhoneNumber;
 import au.com.belong.customerphoneapi.dto.PageDTO;
 import au.com.belong.customerphoneapi.exception.ResourceStateConflictException;
 import au.com.belong.customerphoneapi.repository.PhoneNumberRepository;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -16,11 +18,13 @@ public class PhoneNumberServiceImpl extends BaseCrudService<PhoneNumber, PhoneNu
     }
 
     @Override
+    @Cacheable(value = "phoneNumbers")
     public Mono<PageDTO<PhoneNumber>> getAllFor(int page, int size) {
         return findAll(page, size);
     }
 
     @Override
+    @Cacheable(value = "customers", key = "#customerId")
     public Flux<PhoneNumber> getAllFor(long customerId) {
         return getRepository().findByCustomerId(customerId);
     }
@@ -34,6 +38,7 @@ public class PhoneNumberServiceImpl extends BaseCrudService<PhoneNumber, PhoneNu
      * @return The updated phone number.
      */
     @Override
+    @CachePut(value = "phoneNumbers", key = "#phoneId")
     public Mono<PhoneNumber> updateFor(long phoneId, boolean status) {
         return update(phoneId, phoneNumber -> {
             if (phoneNumber.isActive() == status) {
