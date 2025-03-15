@@ -1,0 +1,8 @@
+CREATE TABLE PHONE_NUMBERS
+(
+    id           BIGINT AUTO_INCREMENT PRIMARY KEY,
+    phone_number VARCHAR(15) NOT NULL,
+    is_active    BOOLEAN DEFAULT TRUE,
+    customer_id  BIGINT,
+    FOREIGN KEY (customer_id) REFERENCES CUSTOMERS (id) ON DELETE CASCADE
+);

@@ -1,0 +1,2 @@
+INSERT INTO CUSTOMERS (name) VALUES ('John Doe');
+INSERT INTO CUSTOMERS (name) VALUES ('Jane Smith');
