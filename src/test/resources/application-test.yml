@@ -1,5 +1,8 @@
 spring:
   application:
     env: test
-
+  r2dbc:
+    url: r2dbc:h2:file:///./target/h2db/belong_${spring.application.env}_db;
+  flyway:
+    url: jdbc:h2:file:./target/h2db/belong_${spring.application.env}_db;
 
