@@ -102,9 +102,6 @@ active (boolean to indicate whether the phone number is active or not)
 }
 ```
 
-### 5. Actuator endpoint
-**GET** `/actuator`
-
 ## Error Handling
 The API uses standard HTTP status codes for error handling:
 
@@ -143,7 +140,7 @@ The API uses standard HTTP status codes for error handling:
 ### You can run the tests using:
 
 ```bash
-./mvnw test
+./mvnw test verify
 ```
 
 ### Tests cover various scenarios, including:
@@ -172,20 +169,21 @@ cd phone-number-api
 ```
 
 #### Run the application:
-```bash
-./mvnw spring-boot:run
-```
 
-The application will run on `http://localhost:8080` by default.
-
-#### Run the application:
+#### Locally (active.profile=local)
 ```bash
-./mvnw spring-boot:run
+./mvnw spring-boot:run -Dspring-boot.run.profiles=local
 ```
 The application will run on `http://localhost:8080` by default.
 
 #### Try the application using Postman:
 - Import the postman collection to your local Postman
+
+#### Try the application using Swagger UI
+- After running the application, you can accesss SwaggerUI on `http://localhost:8080/swagger-ui.html`
+
+#### Actuator endpoint
+**GET** `http://localhost:8080/actuator`
 
 ## TODO: Improvements
 - Introduce distributed caching for better scalling.
